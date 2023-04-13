@@ -11,12 +11,12 @@ namespace DefaultNamespace
         [SerializeField] private float _force = 1f;
         [SerializeField] private Bullet _bullet;
 
-        private Bullet[] pool = new Bullet[2];
+        private Bullet[] pool = new Bullet[10];
         private int index = 0;
 
         private void Start()
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 10; i++)
             {
                 pool[i] = Instantiate(_bullet, Vector2.zero, Quaternion.identity);
                 pool[i].gameObject.SetActive(false);
@@ -45,7 +45,7 @@ namespace DefaultNamespace
             //var bullet = Instantiate(_bullet, p, Quaternion.identity);
             //_bullet.Shot(-dir.normalized);
 
-            var b = pool[index % 2];
+            var b = pool[index % 10];
             b.Stop();
             b.transform.position = _muzzle.position;
             b.gameObject.SetActive(true);

@@ -21,6 +21,9 @@ namespace PathCreation {
 
  #region Fields
 
+ [SerializeField] 
+ private List<int> anchorIndexes;
+
  [SerializeField, HideInInspector]
  List<Vector3> points;
  [SerializeField, HideInInspector]
@@ -64,6 +67,11 @@ namespace PathCreation {
  centre + Vector3.right * width
  };
 
+ anchorIndexes = new List<int>();
+ anchorIndexes.Add(0);
+ anchorIndexes.Add(3);
+ 
+
  perAnchorNormalsAngle = new List<float> () { 0, 0 };
 
  Space = space;
@@ -82,6 +90,7 @@ namespace PathCreation {
             } else {
                 controlMode = ControlMode.Automatic;
                 this.points = new List<Vector3> { pointsArray[0], Vector3.zero, Vector3.zero, pointsArray[1] };
+                this.anchorIndexes = new List<int>() {0, 3};
                 perAnchorNormalsAngle = new List<float> (new float[] { 0, 0 });
 
                 for (int i = 2; i < pointsArray.Length; i++) {
@@ -152,6 +161,8 @@ namespace PathCreation {
                 return (IsClosed) ? points.Count / 3 : (points.Count + 2) / 3;
             }
         }
+
+        public List<int> AnchorIndexes => anchorIndexes;
 
         /// Number of bezier curves making up this path
         public int NumSegments {
@@ -244,6 +255,7 @@ namespace PathCreation {
             points.Add (secondControlForOldLastAnchor);
             points.Add (controlForNewAnchor);
             points.Add (anchorPos);
+            anchorIndexes.Add(points.Count-1);
             perAnchorNormalsAngle.Add (perAnchorNormalsAngle[perAnchorNormalsAngle.Count - 1]);
 
             if (controlMode == ControlMode.Automatic) {
@@ -323,10 +335,13 @@ namespace PathCreation {
                         points[points.Count - 1] = points[2];
                     }
                     points.RemoveRange (0, 3);
+                    RemoveAnchorIndexes(0, 3);
                 } else if (anchorIndex == points.Count - 1 && !isClosed) {
                     points.RemoveRange (anchorIndex - 2, 3);
+                    RemoveAnchorIndexes(anchorIndex - 2, 3);
                 } else {
                     points.RemoveRange (anchorIndex - 1, 3);
+                    RemoveAnchorIndexes(anchorIndex - 1, 3);
                 }
 
                 perAnchorNormalsAngle.RemoveAt (anchorIndex / 3);
@@ -632,7 +647,7 @@ namespace PathCreation {
         }
 
         /// Add/remove the extra 2 controls required for a closed path
-        void UpdateClosedState () {
+        public void UpdateClosedState () {
             if (isClosed) {
                 // Set positions for new controls to mirror their counterparts
                 Vector3 lastAnchorSecondControl = points[points.Count - 1] * 2 - points[points.Count - 2];
@@ -647,7 +662,7 @@ namespace PathCreation {
                 points.Add (firstAnchorSecondControl);
             } else {
                 points.RemoveRange (points.Count - 2, 2);
-
+                RemoveAnchorIndexes(points.Count - 2, 2);
             }
 
             if (controlMode == ControlMode.Automatic) {
@@ -656,6 +671,15 @@ namespace PathCreation {
 
             if (OnModified != null) {
                 OnModified ();
+            }
+        }
+
+        private void RemoveAnchorIndexes(int begin, int amount)
+        {
+            for (int i = begin; i < amount; i++)
+            {
+                if (anchorIndexes.Contains(i))
+                    anchorIndexes.Remove(i);   
             }
         }
 
