@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gameplay;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -87,14 +88,14 @@ namespace DefaultNamespace
         private void TryToReflect(Collider2D collider)
         {
             
-            if (collider.TryGetComponent<IMovement>(out IMovement movement))
+            if (collider.TryGetComponent<IBird>(out IBird bird))
             {
                 //var movement = collider.GetComponent<IMovement>();
-                RaycastHit2D[] hit2D = Physics2D.RaycastAll(collider.transform.position, movement.Velocity);
+                RaycastHit2D[] hit2D = Physics2D.RaycastAll(collider.transform.position, bird.Movement.Velocity);
             
                 Vector2 contactPoint = hit2D[1].point;
                 Vector2 normal = Vector2.Perpendicular(contactPoint - GetClosestPoint(collider.transform.position)).normalized;
-                movement.Velocity = Vector2.Reflect(movement.Velocity, normal);   
+                bird.Movement.Velocity = Vector2.Reflect(bird.Movement.Velocity, normal);   
             }
         }
 
