@@ -1,86 +1,109 @@
-using System;
+using ModestTree;
 using UnityEditor;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class Movement : MonoBehaviour
+    public interface IMovement
+    {
+        Vector2 Velocity { get; set; }
+    }
+    public class Movement : MonoBehaviour, IMovement
     {
         [SerializeField] public Rigidbody2D _rigidbody;
         [SerializeField] private Collider2D _collider;
         [SerializeField] private EdgeCollider2D _edgeCollder;
         private Vector3 _point0;
         private Vector3 _point1;
+        private float _t;
+        
+        [SerializeField] private Vector2 _direction = Vector2.zero;
+        [Range(0f, 20f), SerializeField] private float _force = 1f;
+        [Range(0f,10f), SerializeField] private float _speed = 1;
+        [Range(0f,90f), SerializeField] private float _amplitude = 1;
+        private float _degress;
+        
+        private Vector2 _defaultVelocity = Vector3.zero;
+        private int _sign = 1;
+
+        public Rigidbody2D Rigidbody => _rigidbody;
 
         private void Start()
         {
              //var dir  = new Vector2(UnityEngine.Random.Range(0,1f), UnityEngine.Random.Range(0,1f));
-            var dir  = new Vector2(0.9f, -0.4f);
-            _rigidbody.AddForce(dir * UnityEngine.Random.Range(5,5), ForceMode2D.Impulse);
-            Debug.Log($"DIR:{dir}");
-        }
+            //var dir  = new Vector2(0.9f, -0.4f);
+            //var dir = _direction;
+            //_force = UnityEngine.Random.Range(1f, 2f);
+            //_rigidbody.AddForce(dir.normalized * _force, ForceMode2D.Impulse);
+            //Debug.Log($"DIR:{dir}");
 
-        private void FixedUpdate()
-        {
-            Debug.Log($"FU:{_rigidbody.velocity}");
-            Draw(_rigidbody.transform.position, _rigidbody.velocity, Color.red);
+            Velocity = _direction * _force;
         }
+        
         
         private void Draw(Vector3 original, Vector3 direction, Color color)
         {
             var ray = new Ray(original, direction);
-            Debug.DrawLine(ray.origin, ray.GetPoint(.8f), color, .01f);
-            Debug.DrawLine(ray.GetPoint(.8f), ray.GetPoint(.85f), Color.cyan, .01f);
+            Debug.DrawLine(ray.origin, ray.GetPoint(.8f), color, .1f);
+            Debug.DrawLine(ray.GetPoint(.8f), ray.GetPoint(.85f), Color.cyan, .1f);
         }
+
+        private void FixedUpdate()
+        {
+            //Draw(_rigidbody.position, _rigidbody.velocity, Color.green);
+            //_rigidbody.velocity = _rigidbody.velocity.Rotate(DegressWithFixedUpdate);
+
+            // var angle = DegressWithFixedUpdate;
+            // var dir = _direction.Rotate(angle);
+            // Draw(transform.position, _direction, Color.red);
+            // Draw(transform.position, dir, Color.green);
+            
+            
+            var angle = DegressWithFixedUpdate;
+            // var dir = _defaultVelocity.Rotate(angle);
+            _rigidbody.velocity = _defaultVelocity.Rotate(angle);
+            Draw(_rigidbody.position, _defaultVelocity, Color.red);
+            //Draw(transform.position, dir, Color.green);
+            Draw(_rigidbody.position, _rigidbody.velocity, Color.green);
+        }
+
+        private float DegressWithUpdate => _sign * _amplitude * Mathf.Sin(_t += Time.deltaTime * _speed);
+        private float DegressWithFixedUpdate => _sign * _amplitude * Mathf.Sin(_t += Time.fixedDeltaTime * _speed);
+        private float DegressWithLateUpdate => _sign * _amplitude * Mathf.Sin(_t += Time.fixedDeltaTime * _speed);
 
         // private void OnCollisionEnter2D(Collision2D collision)
         // {
-        //     Debug.Log($"OnCollisionEnter2D ENEMY");
-        //     
-        //     var r = new Ray(collision.contacts[0].point, -collision.contacts[0].normal);
-        //     Debug.DrawLine(r.origin, r.GetPoint(1f), Color.blue, 1f);
-        //     
-        //     var v = Vector3.Reflect(_rigidbody.velocity, -collision.contacts[0].normal); 
-        //     
-        //     r = new Ray(_rigidbody.transform.position, v.normalized);
-        //     Debug.DrawLine(r.origin, r.GetPoint(1f), Color.green, 1f);
-        //     
-        //     _rigidbody.velocity = v; 
+        //     // Debug.Log($"{collision.contacts.Length}", collision.collider.gameObject);
+        //     // Velocity = Vector3.Reflect(_rigidbody.velocity, collision.contacts[0].normal);
         // }
         
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            //contact point is gotten by raycasting in the colliders velocity direction at the colliders position.
-            RaycastHit2D[] hit2D = Physics2D.RaycastAll(_collider.transform.position, _rigidbody.velocity);
-            // var ray = new Ray(_collider.transform.position, _rigidbody.velocity);
-            // Debug.DrawLine(ray.origin, ray.GetPoint(1f), Color.red, 10f);
-            //second one is being used because first one is self, could probably ignore self-layer and get as Physics2D.Raycast() instead
+            //Debug.Log($"OnCollisionStay2D");
+            var normal = (-collision.contacts[0].normal).Rotate(45);
+            var reflect = Vector3.Reflect(_rigidbody.velocity, normal);
             
-            Debug.Log($"OnTriggerEnter2D Hits:{hit2D.Length}");
+            Draw(_rigidbody.position, reflect, Color.blue);
+            Draw(_rigidbody.position, normal, Color.magenta);
             
-            _point0 = hit2D[0].point;
-            _point1 = hit2D.Length > 1 ? hit2D[1].point : Vector2.zero;
-            
-            Draw(_point0, _point1 - _point0, Color.red);
-
-            
-            Vector2 contactPoint = hit2D[1].point;
-            //Get normal of contact point by creating a line from the contact point to the closest collider point and rotating 90°
-            Vector2 normal = Vector2.Perpendicular(contactPoint - GetClosestPoint(_collider.transform.position)).normalized;
-            //reflect the current velocity at the edge normal
-            _rigidbody.velocity = Vector2.Reflect(_rigidbody.velocity, normal);
+            Velocity = reflect;
         }
-
+        
+        
         private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_point0, 0.1f);
-            Handles.Label(_point0, $"{(Vector2)(_point0)}");
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_point1, 0.1f);
-            Handles.Label(_point1, $"{(Vector2)(_point1)}");
+            {
+            // Gizmos.color = Color.red;
+            // Gizmos.DrawSphere(_point0, 0.1f);
+            // Handles.Label(_point0, $"{(Vector2)(_point0)}");
+            // Gizmos.color = Color.green;
+            // Gizmos.DrawSphere(_point1, 0.1f);
+            
+            var pos = transform.position;
+            pos.x += 0.2f;
+            
+            Handles.Label(pos, $"[{_rigidbody.velocity.magnitude}]");
         }
-
+        
         Vector2 GetClosestPoint(Vector2 position)
         {
             Vector2[] points = _edgeCollder.points;
@@ -95,6 +118,42 @@ namespace DefaultNamespace
                 }
             }
             return closestPoint;
+        }
+
+        public Vector2 Velocity
+        {
+            get => _rigidbody.velocity;
+            set
+            {
+                _t = 0f;
+                _rigidbody.velocity = value.normalized * _force;
+                _defaultVelocity = _rigidbody.velocity;
+                _sign = RandomSign;
+                
+                // Debug.Log($"{_sign}");
+            }
+        }
+
+        private int RandomSign => UnityEngine.Random.value < .5 ? 1 : -1;
+        //private int RandomSign => (int) ((UnityEngine.Random.Range(0,2) - 0.5) * 2);
+    }
+
+    public static class Vector2Extension
+    {
+        public static Vector2 Rotate(this Vector2 v, float degrees)
+        {
+            return Quaternion.Euler(0, 0, degrees) * v;
+        }
+        
+        public static Vector2 Rotate2(this Vector2 v, float degrees) {
+            float radians = degrees * Mathf.Deg2Rad;
+            float sin = Mathf.Sin(radians);
+            float cos = Mathf.Cos(radians);
+         
+            float tx = v.x;
+            float ty = v.y;
+ 
+            return new Vector2(cos * tx - sin * ty, sin * tx + cos * ty);
         }
     }
 }
