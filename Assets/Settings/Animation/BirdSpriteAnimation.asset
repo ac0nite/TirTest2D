@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77fafcc6bd2ee94ebe9ac341b986e7a, type: 3}
+  m_Name: BirdSpriteAnimation
+  m_EditorClassIdentifier: 
+  SpriteAnimations:
+  - Name: Fly
+    FPS: 10
+    Frames:
+    - {fileID: -8770199067441582678, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: 3592821851596770467, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: 5807890318125543542, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: -3217547647438808195, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: 2664934549787512939, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: -423702883206052129, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: -6713085207223633648, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    - {fileID: 9010956787943155363, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
+    SpriteAnimationType: 0
+  - Name: Explosion
+    FPS: 4
+    Frames:
+    - {fileID: 21300000, guid: fd18c42731d6e437e9ce9699a4e82f4f, type: 3}
+    - {fileID: 21300000, guid: 40aee7a3b8bf646d49d625d172eaca35, type: 3}
+    - {fileID: 21300000, guid: 4e38c1f3f1554416691d032eb040b5db, type: 3}
+    - {fileID: 21300000, guid: 93d08c8c26a60448b95c9328a08bb218, type: 3}
+    SpriteAnimationType: 1
