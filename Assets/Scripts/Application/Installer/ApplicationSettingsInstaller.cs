@@ -1,10 +1,13 @@
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "ApplicationSettingsInstaller", menuName = "Installers/ApplicationSettingsInstaller")]
-public class ApplicationSettingsInstaller : ScriptableObjectInstaller<ApplicationSettingsInstaller>
+namespace Application.Installer
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "ApplicationSettingsInstaller", menuName = "Installers/ApplicationSettingsInstaller")]
+    public class ApplicationSettingsInstaller : ScriptableObjectInstaller<ApplicationSettingsInstaller>
     {
+        public override void InstallBindings()
+        {
+        }
     }
 }

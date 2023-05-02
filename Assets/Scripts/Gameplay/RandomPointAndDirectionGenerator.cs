@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Gameplay
 {
     public class RandomPointAndDirectionGenerator
     {

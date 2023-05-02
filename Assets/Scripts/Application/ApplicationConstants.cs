@@ -1,7 +1,7 @@
-using Common.SceneLoader;
+using Application.SceneLoader;
 using UnityEngine.SceneManagement;
 
-namespace Application.StateMachine
+namespace Application
 {
     public static class ApplicationConstants
     {

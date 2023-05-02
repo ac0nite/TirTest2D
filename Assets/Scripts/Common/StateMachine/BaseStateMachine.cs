@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common.ApplicationStateMachine
+namespace Common.StateMachine
 {
     public class BaseStateMachine<TEnum> : IStateMachine<TEnum> where TEnum : Enum 
     {

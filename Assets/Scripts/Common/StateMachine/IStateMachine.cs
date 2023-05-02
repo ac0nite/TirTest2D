@@ -1,6 +1,6 @@
 using System;
 
-namespace Common.ApplicationStateMachine
+namespace Common.StateMachine
 {
     public interface IStateMachine<TEnum> where TEnum : Enum
     {

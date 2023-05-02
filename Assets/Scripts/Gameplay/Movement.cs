@@ -1,8 +1,7 @@
-using ModestTree;
 using UnityEditor;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Gameplay
 {
     public interface IMovement
     {

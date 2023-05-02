@@ -1,9 +1,8 @@
-
 using Application.StateMachine;
 using UnityEngine;
 using Zenject;
 
-namespace Loading
+namespace Services
 {
     public class GameLoader : IInitializable
     {

@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Loading.Installer
+namespace Services.Installers
 {
     public class LoadingInstaller : MonoInstaller
     {

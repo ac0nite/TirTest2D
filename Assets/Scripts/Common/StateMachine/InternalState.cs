@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ModestTree;
 
-namespace Common.ApplicationStateMachine
+namespace Common.StateMachine
 {
     public class InternalState<TEnum> : IInternalState<TEnum> where TEnum : Enum
     {

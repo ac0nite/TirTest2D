@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Gameplay;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Gameplay
 {
     public class ScreenCollider : MonoBehaviour
     {

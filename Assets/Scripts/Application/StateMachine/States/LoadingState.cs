@@ -1,5 +1,6 @@
-using Common.ApplicationStateMachine;
-using Common.SceneLoader;
+using Application.UI;
+using Application.UI.Common;
+using Common.StateMachine;
 using UnityEngine;
 using Zenject;
 
@@ -7,15 +8,19 @@ namespace Application.StateMachine.States
 {
     public class LoadingState : IState
     {
-        private readonly SceneLoader _sceneLoader;
+        private readonly SceneLoader.SceneLoader _sceneLoader;
+        private readonly IScreenController _screenController;
 
         public LoadingState(
-            SceneLoader sceneLoader)
+            SceneLoader.SceneLoader sceneLoader,
+            IScreenController screenController)
         {
             _sceneLoader = sceneLoader;
+            _screenController = screenController;
         }
         public void OnEnter()
         {
+            _screenController.ActiveScreen(GameplayScreenType.APPLICATION);
             ApplicationConstants.LoadingSceneRequest.OnCompleted = SceneLoaded;
             _sceneLoader.LoadSceneAsync(ApplicationConstants.LoadingSceneRequest);
         }

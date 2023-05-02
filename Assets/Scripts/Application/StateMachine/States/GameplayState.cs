@@ -1,5 +1,5 @@
-using Common.ApplicationStateMachine;
-using Common.SceneLoader;
+using Application.SceneLoader;
+using Common.StateMachine;
 using UnityEngine;
 using Zenject;
 

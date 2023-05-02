@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.SceneManagement;
 
-namespace Common.SceneLoader
+namespace Application.SceneLoader
 {
     public struct SceneRequest
     {

@@ -1,9 +1,6 @@
-using System;
-using Gameplay;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
+namespace Gameplay
 {
     public interface ISpawner
     {

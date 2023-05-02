@@ -1,4 +1,4 @@
-namespace Common.ApplicationStateMachine
+namespace Common.StateMachine
 {
     public interface IState
     {
