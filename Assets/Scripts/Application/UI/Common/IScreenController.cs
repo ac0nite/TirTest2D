@@ -3,8 +3,11 @@ namespace Application.UI.Common
     public interface IScreenController
     {
         void Add(GameplayScreenType type, IGameplayScreen screen);
-        void ActiveScreen(GameplayScreenType type, bool asGeneralScreen = false);
-        void HideLastScreen();
-        void HideScreen(GameplayScreenType type);
+        void Show(GameplayScreenType type);
+        void Hide(GameplayScreenType type, bool showPrevious = false);
+        void ShowGeneral(GameplayScreenType type);
+        void HideGeneral(GameplayScreenType type);
+        void ShowLastAll();
+        void HideAll(bool keepActive = false);
     }
 }

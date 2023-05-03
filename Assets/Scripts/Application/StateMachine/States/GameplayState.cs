@@ -21,7 +21,7 @@ namespace Application.StateMachine.States
 
         private void SceneLoaded()
         {
-            Debug.Log($"SCENE 'GAMEPLAY' LOADED");
+            //
         }
 
         public void OnExit()

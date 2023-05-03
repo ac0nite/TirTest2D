@@ -7,8 +7,6 @@ namespace Services
     public class GameLoader : IInitializable
     {
         private readonly SignalBus _signals;
-
-
         public GameLoader(SignalBus signals)
         {
             _signals = signals;
@@ -17,7 +15,7 @@ namespace Services
 
         public void Initialize()
         {
-            Debug.Log($"GameLoader:Initialize");
+            Debug.Log($"GameLoader Init");
             _signals.TryFire(new ApplicationStateMachine.Signals.OnState(ApplicationStateEnum.GAMEPLAY));
         }
 

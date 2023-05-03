@@ -3,6 +3,7 @@ using Application.StateMachine.States;
 using Application.UI;
 using Application.UI.Common;
 using Common.StateMachine;
+using DG.Tweening;
 using Zenject;
 
 namespace Application.Installer
@@ -15,6 +16,12 @@ namespace Application.Installer
             InstallSignals();
             InstallLoader();
             InstallUI();
+            InitialiseDOTween();
+        }
+
+        private void InitialiseDOTween()
+        {
+            DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 50);
         }
 
         private void InstallUI()
@@ -34,7 +41,7 @@ namespace Application.Installer
         }
         private void InstallStateMachine()
         {
-            Container.Bind<IInitializable>().To<ApplicationStateMachine>().AsSingle();
+            Container.Bind(typeof(ApplicationStateMachine)).ToSelf().AsSingle().NonLazy();
 
             Container.BindFactory<IState, LoadingState.Factory>()
                 .To<LoadingState>()

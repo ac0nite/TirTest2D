@@ -20,21 +20,19 @@ namespace Application.StateMachine.States
         }
         public void OnEnter()
         {
-            _screenController.ActiveScreen(GameplayScreenType.APPLICATION);
+            _screenController.Show(GameplayScreenType.APPLICATION);
             ApplicationConstants.LoadingSceneRequest.OnCompleted = SceneLoaded;
             _sceneLoader.LoadSceneAsync(ApplicationConstants.LoadingSceneRequest);
         }
 
         private void SceneLoaded()
         {
-            Debug.Log($"SCENE 'LOADING' LOADED");
             ApplicationConstants.LoadingSceneRequest.OnCompleted = null;
         }
 
         public void OnExit()
         {
             _sceneLoader.UnLoadSceneAsync(ApplicationConstants.LoadingSceneRequest);
-            Debug.Log($"SCENE 'LOADING' UNLOAD");
         }
 
         #region FACTORY

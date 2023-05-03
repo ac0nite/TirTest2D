@@ -20,6 +20,8 @@ namespace Application.StateMachine
             GameplayState.Factory gameplayStateFactory,
             SignalBus signals)
         {
+            Debug.Log($"Application StateMachine Init");
+            
             Register(ApplicationStateEnum.LOADING, loadingStateFactory.Create())
                 .GoesTo(ApplicationStateEnum.GAMEPLAY);
             
@@ -32,9 +34,7 @@ namespace Application.StateMachine
         }
         
         public void Initialize()
-        {
-            Debug.Log($"ApplicationStateMachine Initializable");
-        }
+        { }
 
         private void ChangeState(Signals.OnState arg)
         {

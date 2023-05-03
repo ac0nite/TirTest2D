@@ -1,4 +1,8 @@
+using Application.UI;
+using Application.UI.Common;
+using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay
 {
