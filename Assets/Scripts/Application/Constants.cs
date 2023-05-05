@@ -1,9 +1,9 @@
 using Application.SceneLoader;
 using UnityEngine.SceneManagement;
 
-namespace Application
+namespace ApplicationConstant
 {
-    public static class ApplicationConstants
+    public static class Constants
     {
         public static SceneRequest LoadingSceneRequest = new SceneRequest()
         {
@@ -20,7 +20,7 @@ namespace Application
             UnloadOptions = UnloadSceneOptions.None,
             OnCompleted = null
         };
-        
+
         public class ID
         {
             public const string ApplicationCanvas = "ApplicationCanvas";   
