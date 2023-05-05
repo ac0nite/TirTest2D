@@ -17,10 +17,10 @@ namespace Gameplay
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _generator.DebugDraw();
-            }
+            // if (Input.GetKeyDown(KeyCode.R))
+            // {
+            //     _generator.DebugDraw();
+            // }
         }
     }
 }

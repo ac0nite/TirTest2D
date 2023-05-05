@@ -97,10 +97,10 @@ namespace Gameplay
             // Gizmos.color = Color.green;
             // Gizmos.DrawSphere(_point1, 0.1f);
             
-            var pos = transform.position;
-            pos.x += 0.2f;
-            
-            Handles.Label(pos, $"[{_rigidbody.velocity.magnitude}]");
+            // var pos = transform.position;
+            // pos.x += 0.2f;
+            //
+            // Handles.Label(pos, $"[{_rigidbody.velocity.magnitude}]");
         }
         
         Vector2 GetClosestPoint(Vector2 position)

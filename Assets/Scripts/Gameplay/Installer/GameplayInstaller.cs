@@ -6,6 +6,7 @@ namespace Gameplay.Installer
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
         }
     }
 }

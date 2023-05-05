@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4220455923745362504}
   - component: {fileID: 4220455923745362507}
   - component: {fileID: 7581278322969196560}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4220455923887647141}
   - component: {fileID: 4220455923887647140}
   - component: {fileID: 3583913630915634968}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BirdSimple
   m_TagString: Untagged
   m_Icon: {fileID: 0}

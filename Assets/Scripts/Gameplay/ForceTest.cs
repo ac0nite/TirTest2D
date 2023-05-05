@@ -16,6 +16,16 @@ namespace Gameplay
 
         private Bullet[] pool = new Bullet[10];
         private int index = 0;
+        private IInputService _input;
+
+        [Inject]
+        public void Construct(IInputService inputService)
+        {
+            _input = inputService;
+            _input.EventTouchPosition += OnTouch;
+        }
+        
+        
 
         private void Start()
         {
@@ -26,14 +36,21 @@ namespace Gameplay
             }
         }
 
+        private void OnTouch(Vector2 position)
+        {
+            ApplyForce(position);
+            MuzzleTurning(position);
+            OneShot(position);
+        }
+
         private void Update()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                ApplyForce(Input.mousePosition);
-                MuzzleTurning(Input.mousePosition);
-                OneShot(Input.mousePosition);
-            }
+            // if (Input.GetMouseButtonUp(0))
+            // {
+            //     ApplyForce(Input.mousePosition);
+            //     MuzzleTurning(Input.mousePosition);
+            //     OneShot(Input.mousePosition);
+            // }
         }
 
         private void OneShot(Vector3 mousePosition)

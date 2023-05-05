@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7620776141266226741}
   - component: {fileID: 7620776141266226743}
   - component: {fileID: 1261076446779494709}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 7620776142290596161}
   - component: {fileID: 7620776142290596160}
   - component: {fileID: 5693385500632619074}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BirdHard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 5978898516894778253, guid: 17c558ddb31742c42894aa507b18c308, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   _direction: {x: 0.23, y: -0.4}
   _force: 2.2
   _speed: 1
-  _amplitude: 55
+  _amplitude: 90
 --- !u!114 &5693385500632619074
 MonoBehaviour:
   m_ObjectHideFlags: 0

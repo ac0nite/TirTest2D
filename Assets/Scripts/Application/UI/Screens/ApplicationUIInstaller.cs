@@ -1,4 +1,5 @@
 using Application.UI.Common;
+using ApplicationConstant;
 using UnityEngine;
 using Zenject;
 
@@ -9,17 +10,15 @@ namespace Application.UI.Screens
         private readonly Canvas _applicationCanvas;
 
         public ApplicationUIInstaller(
-            [Inject (Id = ApplicationConstants.ID.ApplicationCanvas)] Canvas canvas)
+            [Inject (Id = Constants.ID.ApplicationCanvas)] Canvas canvas)
         {
             _applicationCanvas = canvas;
         }
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ScreenController>().AsSingle().NonLazy();
-
             Container.Bind<IGameplayScreen>()
-                .FromComponentInNewPrefabResource(ApplicationConstants.Resources.ApplicationScreen)
+                .FromComponentInNewPrefabResource(Constants.Resources.ApplicationScreen)
                 .UnderTransform(_applicationCanvas.transform)
                 .AsSingle()
                 .NonLazy();
