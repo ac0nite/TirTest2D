@@ -28,7 +28,9 @@ namespace ApplicationConstant
 
         public class Resources
         {
-            public const string ApplicationScreen = "Prefabs/Applications/ApplicationScreen";   
+            public const string ApplicationScreen = "Prefabs/Applications/ApplicationScreen";
+            public const string Cannonball = "Prefabs/Gameplay/Cannonball";
+            public const string Bomb = "Prefabs/Gameplay/Bomb";
         }
     }
 }

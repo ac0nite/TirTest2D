@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c409d5346a91444f7af933832d770b99, type: 3}
-  m_Name: GameplaySettingsInstaller
+  m_Script: {fileID: 11500000, guid: e64f98c0bce54050a10234a48fe8ae8c, type: 3}
+  m_Name: 1_BulletSettings
   m_EditorClassIdentifier: 
-  _gameplaySettings:
-    Settings:
-    - Level: 1
-      BulletSettings: {fileID: 11400000, guid: 2e17a87258e374c898d02b9dd5cf2f7d, type: 2}
+  BulletParams:
+  - Type: 0
+    LifeTimeIsOver: 1
+  - Type: 1
+    LifeTimeIsOver: 1

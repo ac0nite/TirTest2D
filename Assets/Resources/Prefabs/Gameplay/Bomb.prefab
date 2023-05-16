@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8105973935092246068}
   - component: {fileID: 1195828515292876861}
-  - component: {fileID: 7750032896630534296}
   - component: {fileID: 8860621150221797862}
   - component: {fileID: 1327794197721805548}
+  - component: {fileID: -1085132818171165918}
   m_Layer: 10
-  m_Name: Bullet
+  m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cc19a446e637d4e74b6ecbe23cf69caf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5f4e77b5bbe342cbad4c8d68707d82d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,20 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7750032896630534296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4647132791955015619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c721b1bcab4dedb487e47ac742d593, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1327794197721805548}
-  _camera: {fileID: 0}
 --- !u!58 &8860621150221797862
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,3 +122,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-1085132818171165918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4647132791955015619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b8d2dc098d463aa8af4226cd373382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 1327794197721805548}

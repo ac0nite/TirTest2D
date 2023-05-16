@@ -1,6 +1,5 @@
-using Application.UI;
-using Application.UI.Common;
-using DG.Tweening;
+using System;
+using Gameplay.Bullets;
 using UnityEngine;
 using Zenject;
 
@@ -12,28 +11,26 @@ namespace Gameplay
         [SerializeField] private Transform _muzzle;
         [SerializeField] private Camera _camera;
         [SerializeField] private float _force = 1f;
-        [SerializeField] private Bullet _bullet;
-
-        private Bullet[] pool = new Bullet[10];
-        private int index = 0;
+        
         private IInputService _input;
+        private IBulletSpawner _bulletSpawner;
+        private IWeaponModelSetter _weaponModelSetter;
+        private IBulletFacade _bulletFacade;
 
         [Inject]
-        public void Construct(IInputService inputService)
+        public void Construct(IInputService inputService, IWeaponModelSetter weaponModelSetter, IBulletFacade bulletFacade)
         {
+            _weaponModelSetter = weaponModelSetter;
+            _bulletFacade = bulletFacade;
+            
             _input = inputService;
             _input.EventTouchPosition += OnTouch;
         }
-        
-        
 
         private void Start()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                pool[i] = Instantiate(_bullet, Vector2.zero, Quaternion.identity);
-                pool[i].gameObject.SetActive(false);
-            }
+            _weaponModelSetter.Level = 1;
+            _weaponModelSetter.BulletType = BulletType.BOMB;
         }
 
         private void OnTouch(Vector2 position)
@@ -41,16 +38,6 @@ namespace Gameplay
             ApplyForce(position);
             MuzzleTurning(position);
             OneShot(position);
-        }
-
-        private void Update()
-        {
-            // if (Input.GetMouseButtonUp(0))
-            // {
-            //     ApplyForce(Input.mousePosition);
-            //     MuzzleTurning(Input.mousePosition);
-            //     OneShot(Input.mousePosition);
-            // }
         }
 
         private void OneShot(Vector3 mousePosition)
@@ -62,15 +49,29 @@ namespace Gameplay
             //
             var p = _muzzle.position;
             p.y += 2f;
+
+            var bullet = _bulletFacade.Spawn(_muzzle.position);
+            bullet.Shot(-dir.normalized * .9f);
+            
             //var bullet = Instantiate(_bullet, p, Quaternion.identity);
             //_bullet.Shot(-dir.normalized);
 
-            var b = pool[index % 10];
-            b.Stop();
-            b.transform.position = _muzzle.position;
-            b.gameObject.SetActive(true);
-            b.Shot(-dir.normalized * .9f);
-            index++;
+            //_bulletSpawner.Spawn(_muzzle.position, -dir.normalized * .9f);
+
+            // var b = _bulletSpawner.Spawn<Bomb>(_muzzle.position);
+            // b.Shot(-dir.normalized * .9f);
+            //
+            // b.EventCollision += (bullet, collision2D) =>
+            // {
+            //     _bulletSpawner.DeSpawn<Bomb>(bullet);
+            // };
+
+            // var b = pool[index % 10];
+            // b.Stop();
+            // b.transform.position = _muzzle.position;
+            // b.gameObject.SetActive(true);
+            // b.Shot(-dir.normalized * .9f);
+            // index++;
         }
 
         private void MuzzleTurning(Vector3 mousePosition)

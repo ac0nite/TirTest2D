@@ -21,7 +21,7 @@ namespace Application.Installer
 
         private void InitialiseDOTween()
         {
-            DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 50);
+            DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(500, 50);
         }
 
         private void InstallUI()

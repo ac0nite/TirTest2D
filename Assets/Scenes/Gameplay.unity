@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
   _edgeCollider: {fileID: 94571102}
-  _offset: 200
+  _offset: 100
 --- !u!68 &94571102
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -896,7 +896,6 @@ MonoBehaviour:
   _muzzle: {fileID: 1310187547}
   _camera: {fileID: 519420031}
   _force: 3
-  _bullet: {fileID: 7750032896630534296, guid: a8e64e4e6f7e2461fafff8b43f50014b, type: 3}
 --- !u!4 &920359261
 Transform:
   m_ObjectHideFlags: 0
@@ -1472,11 +1471,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4220455923887647138, guid: ca6ae9321ddf74da7ab0052d13da8080, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.72
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4220455923887647138, guid: ca6ae9321ddf74da7ab0052d13da8080, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.84
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4220455923887647138, guid: ca6ae9321ddf74da7ab0052d13da8080, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1541,11 +1540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7620776142290596164, guid: 44b85df4fb3f24e82ada01bb2b322f75, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.45
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 7620776142290596164, guid: 44b85df4fb3f24e82ada01bb2b322f75, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: -1.37
       objectReference: {fileID: 0}
     - target: {fileID: 7620776142290596164, guid: 44b85df4fb3f24e82ada01bb2b322f75, type: 3}
       propertyPath: m_LocalPosition.z
