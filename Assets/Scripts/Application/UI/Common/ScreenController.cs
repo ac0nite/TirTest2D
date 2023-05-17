@@ -39,8 +39,10 @@ namespace Application.UI.Common
             if (IsCurrentScreen && TryToHideScreen(_currentScreen))
                 _currentScreen = UNDEFINED;
 
-            if (IsPreviousScreen)
+            if (showPrevious && IsPreviousScreen)
                 Show(_previousScreen);
+            else
+                _previousScreen = GameplayScreenType.UNDEFINED;
         }
 
         public void ShowGeneral(GameplayScreenType type)

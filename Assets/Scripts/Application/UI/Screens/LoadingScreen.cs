@@ -8,19 +8,17 @@ using Zenject;
 
 namespace Application.UI.Screens
 {
-    public class ApplicationScreen : BaseGameplayScreen
+    public class LoadingScreen : BaseGameplayScreen
     {
         [SerializeField] private Image _loadingImage;
-
-        private Canvas _canvas;
-        private TweenerCore<Quaternion,Vector3,QuaternionOptions> _rotateTween;
+        
+        private Tween _rotateTween;
 
         [Inject]
         public void Construct(IScreenController screenController)
         {
-            _canvas = GetComponent<Canvas>();
-            screenController.Add(GameplayScreenType.APPLICATION, this);
-            screenController.Show(GameplayScreenType.APPLICATION);
+            GetUIComponents();
+            screenController.Add(GameplayScreenType.LOADING, this);
         }
         
         public override void Show()

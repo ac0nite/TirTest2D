@@ -1,5 +1,4 @@
-using Application.UI.Common;
-using ApplicationConstant;
+using Resources;
 using UnityEngine;
 using Zenject;
 
@@ -17,10 +16,18 @@ namespace Application.UI.Screens
         
         public override void InstallBindings()
         {
-            Container.Bind<IGameplayScreen>()
-                .FromComponentInNewPrefabResource(Constants.Resources.ApplicationScreen)
+            Container.Bind<Transform>()
+                .FromComponentInNewPrefabResource(Constants.Resources.SplashScreen)
                 .UnderTransform(_applicationCanvas.transform)
-                .AsSingle()
+                .AsTransient()
+                .WhenInjectedInto()
+                .NonLazy();
+
+            Container.Bind<Transform>()
+                .FromComponentInNewPrefabResource(Constants.Resources.LoadingScreen)
+                .UnderTransform(_applicationCanvas.transform)
+                .AsTransient()
+                .WhenInjectedInto()
                 .NonLazy();
         }
     }

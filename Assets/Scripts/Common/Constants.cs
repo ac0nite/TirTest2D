@@ -1,7 +1,7 @@
 using Application.SceneLoader;
 using UnityEngine.SceneManagement;
 
-namespace ApplicationConstant
+namespace Resources
 {
     public static class Constants
     {
@@ -28,7 +28,8 @@ namespace ApplicationConstant
 
         public class Resources
         {
-            public const string ApplicationScreen = "Prefabs/Applications/ApplicationScreen";
+            public const string SplashScreen = "Prefabs/Applications/SplashScreen";
+            public const string LoadingScreen = "Prefabs/Applications/LoadingScreen";
             public const string Cannonball = "Prefabs/Gameplay/Cannonball";
             public const string Bomb = "Prefabs/Gameplay/Bomb";
         }

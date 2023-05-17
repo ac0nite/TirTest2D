@@ -1,6 +1,6 @@
+using System;
 using Application.StateMachine;
 using Application.StateMachine.States;
-using Application.UI;
 using Application.UI.Common;
 using Common.StateMachine;
 using DG.Tweening;
@@ -26,7 +26,7 @@ namespace Application.Installer
 
         private void InstallUI()
         {
-            Container.BindInterfacesAndSelfTo<ScreenController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ScreenController>().AsSingle();
         }
 
         private void InstallLoader()
@@ -37,18 +37,19 @@ namespace Application.Installer
         private void InstallSignals()
         {
             SignalBusInstaller.Install(Container);
-            Container.DeclareSignal<ApplicationStateMachine.Signals.OnState>().OptionalSubscriber();
+            
+            Container.DeclareSignal<ApplicationStateMachine.Signals.NextState>().OptionalSubscriber();
         }
         private void InstallStateMachine()
         {
-            Container.Bind(typeof(ApplicationStateMachine)).ToSelf().AsSingle().NonLazy();
+            Container.Bind(typeof(ApplicationStateMachine), typeof(IDisposable)).To<ApplicationStateMachine>().AsSingle().NonLazy();
 
-            Container.BindFactory<IState, LoadingState.Factory>()
-                .To<LoadingState>()
+            Container.BindFactory<IState, LoadingApplicationState.Factory>()
+                .To<LoadingApplicationState>()
                 .WhenInjectedInto<ApplicationStateMachine>();
         
-            Container.BindFactory<IState, GameplayState.Factory>()
-                .To<GameplayState>()
+            Container.BindFactory<IState, GameplayApplicationState.Factory>()
+                .To<GameplayApplicationState>()
                 .WhenInjectedInto<ApplicationStateMachine>();
         }
     }

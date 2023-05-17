@@ -1,3 +1,4 @@
+using System;
 using Application.StateMachine.States;
 using Common.StateMachine;
 using UnityEngine;
@@ -11,47 +12,46 @@ namespace Application.StateMachine
         GAMEPLAY
     }
     
-    public class ApplicationStateMachine : BaseStateMachine<ApplicationStateEnum>, IInitializable
+    public class ApplicationStateMachine : BaseStateMachine<ApplicationStateEnum>, IDisposable
     {
         private SignalBus _signals;
         
         public ApplicationStateMachine(
-            LoadingState.Factory loadingStateFactory,
-            GameplayState.Factory gameplayStateFactory,
+            LoadingApplicationState.Factory loadingStateFactory,
+            GameplayApplicationState.Factory gameplayStateFactory,
             SignalBus signals)
         {
             Debug.Log($"Application StateMachine Init");
             
-            Register(ApplicationStateEnum.LOADING, loadingStateFactory.Create())
-                .GoesTo(ApplicationStateEnum.GAMEPLAY);
-            
+            Register(ApplicationStateEnum.LOADING, loadingStateFactory.Create()).GoesTo(ApplicationStateEnum.GAMEPLAY);
             Register(ApplicationStateEnum.GAMEPLAY, gameplayStateFactory.Create());
             
             Run(ApplicationStateEnum.LOADING);
 
             _signals = signals;
-            _signals.Subscribe<ApplicationStateMachine.Signals.OnState>(ChangeState);
+            _signals.Subscribe<ApplicationStateMachine.Signals.NextState>(ChangeState);
+        }
+
+        private void ChangeState(Signals.NextState arg)
+        {
+            NextState(arg.NextStateType);
         }
         
-        public void Initialize()
-        { }
-
-        private void ChangeState(Signals.OnState arg)
+        public void Dispose()
         {
-            NextState(arg.StateEnum);
+            _signals.TryUnsubscribe<ApplicationStateMachine.Signals.NextState>(ChangeState);
         }
 
         #region SIGNALS
 
         public class Signals
         {
-            public class OnState
+            public class NextState
             {
-                public readonly ApplicationStateEnum StateEnum;
-
-                public OnState(ApplicationStateEnum stateEnum)
+                public ApplicationStateEnum NextStateType { get; private set; }
+                public NextState(ApplicationStateEnum nextStateType)
                 {
-                    StateEnum = stateEnum;
+                    NextStateType = nextStateType;
                 }
             }
         }

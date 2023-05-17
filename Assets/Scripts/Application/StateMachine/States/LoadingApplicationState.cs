@@ -1,18 +1,18 @@
 using Application.UI;
 using Application.UI.Common;
-using ApplicationConstant;
 using Common.StateMachine;
+using Resources;
 using UnityEngine;
 using Zenject;
 
 namespace Application.StateMachine.States
 {
-    public class LoadingState : IState
+    public class LoadingApplicationState : IState
     {
         private readonly SceneLoader.SceneLoader _sceneLoader;
         private readonly IScreenController _screenController;
 
-        public LoadingState(
+        public LoadingApplicationState(
             SceneLoader.SceneLoader sceneLoader,
             IScreenController screenController)
         {
@@ -21,7 +21,7 @@ namespace Application.StateMachine.States
         }
         public void OnEnter()
         {
-            _screenController.Show(GameplayScreenType.APPLICATION);
+            _screenController.Show(GameplayScreenType.SPLASH);
             Constants.LoadingSceneRequest.OnCompleted = SceneLoaded;
             _sceneLoader.LoadSceneAsync(Constants.LoadingSceneRequest);
         }

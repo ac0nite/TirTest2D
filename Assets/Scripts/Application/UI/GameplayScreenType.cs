@@ -3,6 +3,9 @@ namespace Application.UI
     public enum GameplayScreenType
     {
         UNDEFINED,
-        APPLICATION
+        SPLASH,
+        LOADING,
+        GAMEPLAY,
+        RESULT
     }
 }

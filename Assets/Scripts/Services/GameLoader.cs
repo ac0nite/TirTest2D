@@ -16,7 +16,7 @@ namespace Services
         public void Initialize()
         {
             Debug.Log($"GameLoader Init");
-            _signals.TryFire(new ApplicationStateMachine.Signals.OnState(ApplicationStateEnum.GAMEPLAY));
+            _signals.TryFire(new ApplicationStateMachine.Signals.NextState(ApplicationStateEnum.GAMEPLAY));
         }
 
 

@@ -1,40 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &299132916393923331
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3046348516752889879}
-  m_Layer: 5
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3046348516752889879
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299132916393923331}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7152831720053074202}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &706583325114033779
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +12,7 @@ GameObject:
   - component: {fileID: 2569367474337202530}
   - component: {fileID: 7041844636144964023}
   m_Layer: 5
-  m_Name: Image
+  m_Name: LoaderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +177,7 @@ GameObject:
   - component: {fileID: 7152831718961725567}
   - component: {fileID: 7152831718961725504}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +312,7 @@ GameObject:
   - component: {fileID: 721082174827664494}
   - component: {fileID: 3155406055866292764}
   m_Layer: 5
-  m_Name: ApplicationScreen
+  m_Name: SplashScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -368,7 +333,6 @@ RectTransform:
   - {fileID: 7152831718961725505}
   - {fileID: 4010436496329524938}
   - {fileID: 7424880085445093587}
-  - {fileID: 3046348516752889879}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -418,7 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe8d61c5ca84f9ab9eb94593b51deae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingImage: {fileID: 7041844636144964023}
+  _backgroundImage: {fileID: 3165622757850732245}
+  _loaderImage: {fileID: 7041844636144964023}
 --- !u!1 &8296479666898710206
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +396,7 @@ GameObject:
   - component: {fileID: 3355669208498256495}
   - component: {fileID: 4331302062861958296}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

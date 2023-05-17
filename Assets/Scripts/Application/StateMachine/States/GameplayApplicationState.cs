@@ -1,19 +1,17 @@
 using Application.SceneLoader;
-using Application.UI;
 using Application.UI.Common;
-using ApplicationConstant;
 using Common.StateMachine;
-using UnityEngine;
+using Resources;
 using Zenject;
 
 namespace Application.StateMachine.States
 {
-    public class GameplayState : IState
+    public class GameplayApplicationState : IState
     {
         private readonly ISceneLoader _sceneLoader;
         private readonly IScreenController _screenController;
 
-        public GameplayState(
+        public GameplayApplicationState(
             ISceneLoader sceneLoader,
             IScreenController screenController)
         {
@@ -28,8 +26,7 @@ namespace Application.StateMachine.States
 
         private void SceneLoaded()
         {
-            Debug.Log($"SCENE '{Constants.GameplaySceneRequest.Name}' LOADED");
-            _screenController.Hide(GameplayScreenType.APPLICATION);
+            //Debug.Log($"SCENE '{Constants.GameplaySceneRequest.Name}' LOADED");
         }
 
         public void OnExit()
