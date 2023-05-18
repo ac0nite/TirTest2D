@@ -6,6 +6,7 @@ namespace Gameplay.Bullets
     public class BombSpawner : IBulletSpawner
     {
         private readonly Bomb.Pool _poll;
+        private Bullet _bullet;
 
         public BombSpawner(Bomb.Pool poll)
         {
@@ -14,7 +15,9 @@ namespace Gameplay.Bullets
         
         public Bullet Spawn(Vector2 position, BulletParam param)
         {
-            return _poll.Spawn(position, param);
+            _bullet = _poll.Spawn(position, param);
+            _bullet.RunLifeTimerIsOver(DeSpawn);
+            return _bullet;
         }
 
         public void DeSpawn(Bullet bullet)

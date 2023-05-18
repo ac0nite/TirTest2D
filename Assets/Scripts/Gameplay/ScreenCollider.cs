@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Gameplay.Enemy;
 using UnityEngine;
 
 namespace Gameplay
@@ -8,11 +9,13 @@ namespace Gameplay
         [SerializeField] private Camera _camera;
         [SerializeField] private EdgeCollider2D _edgeCollider;
         [SerializeField] private int _offset = 0;
+        [SerializeField] private bool _isTriggerCollider = false;
 
 
-        private void Awake()
+        private void Start()
         {
             InitialiseEdgeCollider();
+            _edgeCollider.isTrigger = _isTriggerCollider;
         }
 
         private void InitialiseEdgeCollider()
@@ -25,28 +28,6 @@ namespace Gameplay
             edges.Add(_camera.ScreenToWorldPoint(new Vector2(-_offset, -_offset)));
             _edgeCollider.SetPoints(edges);
         }
-        
-        
-
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            // Rigidbody2D rigidbody = collision.transform.GetComponent<Rigidbody2D>();
-            //
-            // //Debug.Log($"Collision:{rigidbody.velocity}");
-            //
-            // // Draw(rigidbody.transform.position, rigidbody.velocity, Color.black);
-            // // Draw(collision.contacts[0].point, -collision.contacts[0].normal, Color.blue);
-            //
-            // var reflect = Vector2.Reflect(rigidbody.velocity, collision.contacts[0].normal);
-            //
-            // rigidbody.velocity = reflect;
-            //
-            // //Draw(rigidbody.position, rigidbody.velocity, Color.black);
-            
-            // var movement = collision.transform.GetComponent<Movement>();
-            // var reflect = Vector2.Reflect(movement.Rigidbody.velocity, collision.contacts[0].normal);
-            // movement.Rigidbody.velocity = reflect;
-        }
 
         private void Draw(Vector3 original, Vector3 direction, Color color)
         {
@@ -54,32 +35,25 @@ namespace Gameplay
             Debug.DrawLine(ray.origin, ray.GetPoint(1), color, .1f);
             Debug.DrawLine(ray.GetPoint(1), ray.GetPoint(1.1f), Color.cyan, .1f);
         }
+        
+        // void OnCollisionEnter2D(Collision2D collision)
+        // {
+        //     TryToReflect(collision.collider);
+        // }
+        //
+        // void OnCollisionStay2D(Collision2D collision)
+        // {
+        //     TryToReflect(collision.collider);
+        // }
 
 
         private void OnTriggerStay2D(Collider2D collider)
         {
-            // Rigidbody2D colliderRB = collider.GetComponent<Rigidbody2D>();
-            // RaycastHit2D[] hit2D = Physics2D.RaycastAll(collider.transform.position, colliderRB.velocity);
-            // Debug.Log($"OnTriggerStay2D Hits:{hit2D.Length}", colliderRB.gameObject);
-            // Vector2 contactPoint = hit2D[1].point;
-            // Vector2 normal = Vector2.Perpendicular(contactPoint - GetClosestPoint(collider.transform.position)).normalized;
-            // colliderRB.velocity = Vector2.Reflect(colliderRB.velocity, normal);
-            //
-            // Draw(colliderRB.position,colliderRB.velocity, Color.green);
-
             TryToReflect(collider);
         }
         
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            // Rigidbody2D colliderRB = collider.GetComponent<Rigidbody2D>();
-            // RaycastHit2D[] hit2D = Physics2D.RaycastAll(collider.transform.position, colliderRB.velocity);
-            // Debug.Log($"OnTriggerEnter2D Hits:{hit2D.Length}", colliderRB.gameObject);
-            // Vector2 contactPoint = hit2D[1].point;
-            // Vector2 normal = Vector2.Perpendicular(contactPoint - GetClosestPoint(collider.transform.position)).normalized;
-            // colliderRB.velocity = Vector2.Reflect(colliderRB.velocity, normal);
-            // Draw(colliderRB.position,colliderRB.velocity, Color.green);
-            
             TryToReflect(collider);
         }
 

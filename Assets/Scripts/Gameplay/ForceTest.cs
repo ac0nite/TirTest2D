@@ -1,5 +1,6 @@
 using System;
 using Gameplay.Bullets;
+using MyBox;
 using UnityEngine;
 using Zenject;
 
@@ -11,11 +12,13 @@ namespace Gameplay
         [SerializeField] private Transform _muzzle;
         [SerializeField] private Camera _camera;
         [SerializeField] private float _force = 1f;
+        [SerializeField] private float _muzzleSpawnOffsetY = 0.1f;
         
         private IInputService _input;
         private IBulletSpawner _bulletSpawner;
         private IWeaponModelSetter _weaponModelSetter;
         private IBulletFacade _bulletFacade;
+        private Vector3 _positionSpawn;
 
         [Inject]
         public void Construct(IInputService inputService, IWeaponModelSetter weaponModelSetter, IBulletFacade bulletFacade)
@@ -43,35 +46,23 @@ namespace Gameplay
         private void OneShot(Vector3 mousePosition)
         {
             Vector2 pos = _camera.ScreenToWorldPoint(mousePosition);
-            var dir = _target.position - pos;
+            var dir = pos - _target.position;
             //
             Debug.DrawLine(pos, _target.position, Color.red, .5f);
             //
-            var p = _muzzle.position;
-            p.y += 2f;
 
-            var bullet = _bulletFacade.Spawn(_muzzle.position);
-            bullet.Shot(-dir.normalized * .9f);
+            var ray = new Ray(_muzzle.position, dir);
+            //_positionSpawn = _muzzle.position.SetY(_muzzle.position.y + _muzzleSpawnOffsetY);
+            _positionSpawn = ray.GetPoint(_muzzleSpawnOffsetY);
             
-            //var bullet = Instantiate(_bullet, p, Quaternion.identity);
-            //_bullet.Shot(-dir.normalized);
+            var bullet = _bulletFacade.Spawn(_positionSpawn);
+            bullet.Shot(dir.normalized * .9f);
+        }
 
-            //_bulletSpawner.Spawn(_muzzle.position, -dir.normalized * .9f);
-
-            // var b = _bulletSpawner.Spawn<Bomb>(_muzzle.position);
-            // b.Shot(-dir.normalized * .9f);
-            //
-            // b.EventCollision += (bullet, collision2D) =>
-            // {
-            //     _bulletSpawner.DeSpawn<Bomb>(bullet);
-            // };
-
-            // var b = pool[index % 10];
-            // b.Stop();
-            // b.transform.position = _muzzle.position;
-            // b.gameObject.SetActive(true);
-            // b.Shot(-dir.normalized * .9f);
-            // index++;
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_positionSpawn, .1f);
         }
 
         private void MuzzleTurning(Vector3 mousePosition)

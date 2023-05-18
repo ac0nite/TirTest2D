@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gameplay.Settings;
 using UnityEngine;
 
 namespace Gameplay.Bullets
@@ -37,8 +38,8 @@ namespace Gameplay.Bullets
 
         private void InitWeaponParam(int level)
         {
-            var settings = Array.Find(_gameplaySettings.Settings, s => s.Level == level);
-            _currentParam = Array.Find(settings.BulletSettings.BulletParams, p => p.Type == _currentType);
+            var settings = _gameplaySettings.Levels[level];
+            _currentParam = Array.Find(settings.Bullets.BulletParams, p => p.Type == _currentType);
         }
 
         private void OnChangeWeapon(BulletType type)

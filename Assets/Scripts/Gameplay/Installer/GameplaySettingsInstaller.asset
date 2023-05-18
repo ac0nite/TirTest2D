@@ -12,7 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c409d5346a91444f7af933832d770b99, type: 3}
   m_Name: GameplaySettingsInstaller
   m_EditorClassIdentifier: 
+  _gameplayResources:
+    cannonPrefab: {fileID: 0}
+    BulletResources:
+    - Type: 0
+      BulletPrefab: {fileID: 0}
+    - Type: 1
+      BulletPrefab: {fileID: 0}
+    EnemyResources:
+    - Type: 0
+      BirdPrefab: {fileID: 0}
+    - Type: 1
+      BirdPrefab: {fileID: 0}
   _gameplaySettings:
-    Settings:
-    - Level: 1
-      BulletSettings: {fileID: 11400000, guid: 2e17a87258e374c898d02b9dd5cf2f7d, type: 2}
+    Levels:
+      reorderableList:
+        canAdd: 1
+        canRemove: 1
+        draggable: 1
+        expandable: 1
+        multipleSelection: 1
+        isExpanded: 1
+        label:
+          m_Text: Keys
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        headerHeight: 18
+        footerHeight: 13
+        slideEasing: 0.15
+        verticalSpacing: 2
+        showDefaultBackground: 1
+        elementDisplayType: 0
+        elementNameProperty: 
+        elementNameOverride: 
+        elementIcon: {fileID: 0}
+      reqReferences: {fileID: 0}
+      isExpanded: 1
+      _keyValues: 01000000
+      _keys: 01000000
+      _values:
+      - Bullets: {fileID: 11400000, guid: 2e17a87258e374c898d02b9dd5cf2f7d, type: 2}
+        Balance: {fileID: 0}

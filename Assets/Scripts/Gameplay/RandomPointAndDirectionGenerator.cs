@@ -4,15 +4,19 @@ namespace Gameplay
 {
     public class RandomPointAndDirectionGenerator
     {
-        public Vector2 _begin, _end;
-        float _range;
+        private readonly Vector2 _begin, _end;
+        private readonly Camera _camera;
+        private readonly float _range;
+
         public RandomPointAndDirectionGenerator(
+            Camera camera,
             float offsetViewportX,
             float offsetViewportY,
             float dirRange)
         {
-            _begin = Camera.main.ViewportToWorldPoint(new Vector2(0 + offsetViewportX,1 + offsetViewportY));
-            _end = Camera.main.ViewportToWorldPoint(new Vector2(1 - offsetViewportX,1 + offsetViewportY));
+            _camera = camera;
+            _begin = _camera.ViewportToWorldPoint(new Vector2(0 + offsetViewportX,1 + offsetViewportY));
+            _end = _camera.ViewportToWorldPoint(new Vector2(1 - offsetViewportX,1 + offsetViewportY));
             _range = dirRange;
         }
 
