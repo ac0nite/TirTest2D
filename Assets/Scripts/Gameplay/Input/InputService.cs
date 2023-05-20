@@ -3,18 +3,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Gameplay
+namespace Gameplay.Input
 {
     public interface IInputService
     {
-        event Action<Vector2> EventTouchPosition;
         bool Lock { set; }
+        bool GetPressTouch(out Vector2 screenPosition);
     }
     public class InputService : IInputService, IInitializable, IDisposable
     {
         private InputControls _inputControl;
-        public event Action<Vector2> EventTouchPosition;
         private bool _isLock;
+        private Vector2 _position;
 
         public bool Lock
         {
@@ -25,21 +25,28 @@ namespace Gameplay
             }
         }
 
+        public bool GetPressTouch(out Vector2 screenPosition)
+        {
+            screenPosition = _position;
+            return _inputControl.Touch.TouchPress.IsPressed();
+        }
+
         public void Initialize()
         {
             _inputControl = new InputControls();
             Lock = false;
-            _inputControl.Touch.TouchPosition.performed += OnTouchAction;
+
+            _inputControl.Touch.TouchPosition.performed += OnTouchPerformedAction;
         }
 
-        private void OnTouchAction(InputAction.CallbackContext context)
+        private void OnTouchPerformedAction(InputAction.CallbackContext context)
         {
-            EventTouchPosition?.Invoke(context.ReadValue<Vector2>());
+            _position = context.ReadValue<Vector2>();
         }
 
         public void Dispose()
         {
-            _inputControl.Touch.TouchPosition.performed -= OnTouchAction;
+            _inputControl.Touch.TouchPosition.performed -= OnTouchPerformedAction;
             _inputControl?.Dispose();
         }
     }

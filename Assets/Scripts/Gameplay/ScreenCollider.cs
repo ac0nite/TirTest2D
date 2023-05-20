@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Gameplay.Enemy;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Gameplay
         [SerializeField] private EdgeCollider2D _edgeCollider;
         [SerializeField] private int _offset = 0;
         [SerializeField] private bool _isTriggerCollider = false;
+        [SerializeField] private bool _drawSide = false;
 
 
         private void Start()
@@ -35,7 +37,20 @@ namespace Gameplay
             Debug.DrawLine(ray.origin, ray.GetPoint(1), color, .1f);
             Debug.DrawLine(ray.GetPoint(1), ray.GetPoint(1.1f), Color.cyan, .1f);
         }
-        
+
+        private void OnDrawGizmos()
+        {
+            if(!_drawSide)
+                return;
+            
+            Gizmos.color = Color.red;
+            var points = _edgeCollider.points;
+            for (int i = 1; i < points.Length; i++)
+            {
+                Gizmos.DrawLine(points[i-1], points[i]);
+            }
+        }
+
         // void OnCollisionEnter2D(Collision2D collision)
         // {
         //     TryToReflect(collision.collider);

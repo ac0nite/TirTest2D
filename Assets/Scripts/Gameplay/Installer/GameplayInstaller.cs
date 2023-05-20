@@ -1,6 +1,9 @@
 using System;
 using Common.StateMachine;
 using Gameplay.Bullets;
+using Gameplay.Input;
+using Gameplay.Player;
+using Gameplay.Settings;
 using Gameplay.StateMachine;
 using Gameplay.StateMachine.States;
 using Resources;
@@ -10,12 +13,23 @@ namespace Gameplay.Installer
 {
     public class GameplayInstaller : MonoInstaller
     {
+        private readonly GameplayResources _resources;
+
+        public GameplayInstaller(GameplayResources resources)
+        {
+            _resources = resources;
+        }
+        
         public override void InstallBindings()
         {
             InstallStateMachine();
             InstallInput();
             InstallWeapon();
             InstallSignals();
+
+            Container.BindInterfacesAndSelfTo<ScreenBackground>().AsSingle();
+
+            PlayerInstaller.Install(Container);
         }
 
         private void InstallSignals()

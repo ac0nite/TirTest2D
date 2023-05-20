@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Gameplay.Bullets;
+using Gameplay.Player;
 using RotaryHeart.Lib.SerializableDictionary;
 
 namespace Gameplay.Settings
@@ -9,6 +10,7 @@ namespace Gameplay.Settings
     public class GameplaySettings
     {
         public LevelSettings Levels;
+        public Cannon.Settings PLayerSettings;
         public int MaxLevel => Levels.Keys.ElementAt(Levels.Count - 1);
     }
     

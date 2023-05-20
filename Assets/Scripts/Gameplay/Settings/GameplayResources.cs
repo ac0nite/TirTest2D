@@ -9,7 +9,7 @@ namespace Gameplay.Settings
     [Serializable]
     public class GameplayResources
     {
-        [FormerlySerializedAs("GunPrefab")] public Cannon cannonPrefab;
+        [FormerlySerializedAs("cannonPrefab")] [FormerlySerializedAs("GunPrefab")] public Cannon CannonPrefab;
         public BulletResource[] BulletResources;
         public EnemyResource[] EnemyResources;
     }

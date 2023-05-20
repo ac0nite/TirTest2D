@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Gameplay.Bullets
 {
@@ -15,5 +16,7 @@ namespace Gameplay.Bullets
     {
         public BulletType Type;
         public int LifeTimeIsOver = 1;
+        public float ShotPower = 1;
+        public float ShotTimer = 1;
     }
 }

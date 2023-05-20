@@ -6,9 +6,9 @@ namespace Gameplay.Bullets
     {
         public override void Shot(Vector2 direction)
         {
-            _rigidbody.AddForce(direction, ForceMode2D.Impulse);
+            base.Shot(direction);
         }
-        
+
         public class Pool : BasePool
         {
         }

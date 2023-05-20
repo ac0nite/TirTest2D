@@ -15,5 +15,9 @@ MonoBehaviour:
   BulletParams:
   - Type: 0
     LifeTimeIsOver: 2
+    ShotPower: 3
+    ShotTimer: 2
   - Type: 1
-    LifeTimeIsOver: 2
+    LifeTimeIsOver: 3
+    ShotPower: 3
+    ShotTimer: 2

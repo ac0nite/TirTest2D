@@ -26,4 +26,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Demo/Scenes/Tapping.unity
     guid: 5cbd551b16f2a584a946e64452f064f5
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: d60b96fa2363d45eb936ce485c0571c6, type: 2}

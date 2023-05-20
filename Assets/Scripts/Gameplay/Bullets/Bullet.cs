@@ -9,7 +9,7 @@ namespace Gameplay.Bullets
         [SerializeField] protected Rigidbody2D _rigidbody;
 
         public event Action<Bullet, Collision2D> EventCollision;
-        private BulletParam _param;
+        protected BulletParam _param;
 
         protected void Initialize(Vector2 position, BulletParam param)
         {
@@ -35,7 +35,6 @@ namespace Gameplay.Bullets
             protected override void Reinitialize(Vector2 position, BulletParam param, Bullet item)
             {
                 item.Initialize(position, param);
-                //TryToLifeTimeIsOver(item, param.LifeTimeIsOver);
                 base.Reinitialize(position, param, item);
             }
 
@@ -44,18 +43,11 @@ namespace Gameplay.Bullets
                 item.Reset();
                 base.OnDespawned(item);
             }
-
-            // private void TryToLifeTimeIsOver(Bullet item, int lifeTime)
-            // {
-            //     new CustomDoTweenTimer(lifeTime).Run(() =>
-            //     {
-            //         if (item.isActiveAndEnabled) 
-            //             OnDespawned(item); 
-            //     });
-            // }
         }
 
         public virtual void Shot(Vector2 direction)
-        { }
+        {
+            _rigidbody.AddForce(direction * _param.ShotPower, ForceMode2D.Impulse);
+        }
     }
 }

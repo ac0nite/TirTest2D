@@ -6,7 +6,6 @@ namespace Gameplay.Bullets
     {
         private readonly float _duration;
         private Tween _tween;
-        public TweenCallback Callback; 
 
         public CustomDoTweenTimer(float duration)
         {
@@ -18,16 +17,15 @@ namespace Gameplay.Bullets
             _tween = DOVirtual.DelayedCall(_duration, callback, false);
             return this;
         }
-        
-        public CustomDoTweenTimer Run()
-        {
-            _tween = DOVirtual.DelayedCall(_duration, Callback, false);
-            return this;
-        }
-        
+
         public CustomDoTweenTimer RunLoop(TweenCallback callback)
         {
-            _tween = DOVirtual.DelayedCall(_duration, callback, false).SetLoops(-1, LoopType.Incremental).SetRelative(true);
+            _tween = DOVirtual
+                .DelayedCall(_duration, callback, false)
+                .SetLoops(-1, LoopType.Incremental)
+                .SetRelative(true)
+                .OnComplete(callback);
+            
             return this;
         }
 

@@ -8,6 +8,7 @@ namespace Gameplay.Bullets
     public interface IBulletFacade
     {
         Bullet Spawn(Vector2 startPosition);
+        BulletParam CurrentBulletParam { get; }
     }
     
     public class BulletFacade : IBulletFacade, IDisposable
@@ -54,6 +55,8 @@ namespace Gameplay.Bullets
 
             return null;
         }
+
+        public BulletParam CurrentBulletParam => _currentParam;
 
         public void Dispose()
         {

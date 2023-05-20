@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameplaySettingsInstaller
   m_EditorClassIdentifier: 
   _gameplayResources:
-    cannonPrefab: {fileID: 0}
+    CannonPrefab: {fileID: 1484671737944589968, guid: 55cb3a20f1cc140d28a893b68731dcb3, type: 3}
     BulletResources:
     - Type: 0
       BulletPrefab: {fileID: 0}
@@ -53,3 +53,6 @@ MonoBehaviour:
       _values:
       - Bullets: {fileID: 11400000, guid: 2e17a87258e374c898d02b9dd5cf2f7d, type: 2}
         Balance: {fileID: 0}
+    PLayerSettings:
+      MuzzleSpawnBulletOffsetY: 3
+      PowerMovementImpulse: 3

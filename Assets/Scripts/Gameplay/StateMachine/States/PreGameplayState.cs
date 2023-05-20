@@ -7,15 +7,19 @@ namespace Gameplay.StateMachine.States
 {
     public class PreGameplayState : BaseGameplayState
     {
+        private readonly IScreenBackground _screenBackground;
+
         public PreGameplayState(
             SignalBus signals, 
-            IScreenController screenController) : base(signals, screenController)
+            IScreenController screenController,
+            IScreenBackground screenBackground) : base(signals, screenController)
         {
-            
+            _screenBackground = screenBackground;
         }
         public override void OnEnter()
         {
             Debug.Log($"PRE GAMEPLAY STATE");
+            _screenBackground.ScreenFill(new Vector2(0, 1.5f));
             _signals.Fire(new GameplayStateMachine.Signals.NextState(GameplayStateEnum.LOADING));
         }
 
