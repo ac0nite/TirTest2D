@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Gameplay.Bullets.Settings;
+using Gameplay.Models;
 using Gameplay.Settings;
 using UnityEngine;
 
@@ -14,7 +16,7 @@ namespace Gameplay.Bullets
     public class BulletFacade : IBulletFacade, IDisposable
     {
         private readonly Dictionary<BulletType, IBulletSpawner> _bulletDict;
-        private readonly IWeaponModelGetter _weaponModelGetter;
+        private readonly IGameplayModelGetter _gameplayModelGetter;
         private readonly GameplaySettings _gameplaySettings;
         
         private BulletType _currentType;
@@ -22,28 +24,28 @@ namespace Gameplay.Bullets
 
         public BulletFacade(
             GameplaySettings gameplaySettings,
-            IWeaponModelGetter weaponModelGetter,
+            IGameplayModelGetter gameplayModelGetter,
             BombSpawner bombSpawner,
             CannonballSpawner cannonballSpawner)
         {
             _gameplaySettings = gameplaySettings;
-            _weaponModelGetter = weaponModelGetter;
+            _gameplayModelGetter = gameplayModelGetter;
 
             _bulletDict = new Dictionary<BulletType, IBulletSpawner>();
             _bulletDict.Add(BulletType.BOMB, bombSpawner);
             _bulletDict.Add(BulletType.CANNONBALL, cannonballSpawner);
 
-            _weaponModelGetter.EventChangeWeapon += OnChangeWeapon;
-            _weaponModelGetter.EventChangeLevel += InitWeaponParam;
+            _gameplayModelGetter.EventChangeWeapon += OnChangeGameplay;
+            _gameplayModelGetter.EventChangeLevel += InitGameplayParam;
         }
 
-        private void InitWeaponParam(int level)
+        private void InitGameplayParam(int level)
         {
             var settings = _gameplaySettings.Levels[level];
             _currentParam = Array.Find(settings.Bullets.BulletParams, p => p.Type == _currentType);
         }
 
-        private void OnChangeWeapon(BulletType type)
+        private void OnChangeGameplay(BulletType type)
         {
             _currentType = type;
         }
@@ -60,63 +62,8 @@ namespace Gameplay.Bullets
 
         public void Dispose()
         {
-            _weaponModelGetter.EventChangeWeapon -= OnChangeWeapon;
-            _weaponModelGetter.EventChangeLevel -= InitWeaponParam;
-        }
-    }
-
-    public interface IWeaponModelSetter
-    {
-        BulletType BulletType { get; set; }
-        int Level { set; get; }
-
-        event Action<BulletType> EventChangeWeapon;
-        event Action<int> EventChangeLevel;
-    }
-    public interface IWeaponModelGetter
-    {
-        BulletType BulletType { get; }
-        int Level { set; }
-        
-        event Action<BulletType> EventChangeWeapon;
-        event Action<int> EventChangeLevel;
-    }
-    
-    public class WeaponModel : IWeaponModelSetter, IWeaponModelGetter
-    {
-        private BulletType _bulletType;
-        private int _level;
-        private readonly GameplaySettings _gameplaySettings;
-        
-        public WeaponModel(GameplaySettings gameplaySettings)
-        {
-            _gameplaySettings = gameplaySettings;
-        }
-
-        public event Action<BulletType> EventChangeWeapon;
-        public event Action<int> EventChangeLevel;
-
-        public BulletType BulletType
-        {
-            get => _bulletType;
-            set
-            {
-                _bulletType = value;
-                EventChangeWeapon?.Invoke(value);
-            }
-        }
-
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if(value > _gameplaySettings.MaxLevel)
-                    return;
-                
-                _level = value;
-                EventChangeLevel?.Invoke(value);
-            }
+            _gameplayModelGetter.EventChangeWeapon -= OnChangeGameplay;
+            _gameplayModelGetter.EventChangeLevel -= InitGameplayParam;
         }
     }
 }

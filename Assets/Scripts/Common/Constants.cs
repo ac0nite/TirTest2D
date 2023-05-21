@@ -23,15 +23,17 @@ namespace Resources
 
         public class ID
         {
-            public const string ApplicationCanvas = "ApplicationCanvas";   
+            public const string ApplicationCanvas = "ApplicationCanvas";
+            public const string GameplayCanvas = "GameplayCanvas";
         }
 
         public class Resources
         {
             public const string SplashScreen = "Prefabs/Applications/SplashScreen";
             public const string LoadingScreen = "Prefabs/Applications/LoadingScreen";
-            public const string Cannonball = "Prefabs/Gameplay/Cannonball";
-            public const string Bomb = "Prefabs/Gameplay/Bomb";
+            public const string PreviewScreen = "Prefabs/Gameplay/UI/PreviewScreen";
+            public const string GameplayScreen = "Prefabs/Gameplay/UI/GameplayScreen";
+            public const string ResultScreen = "Prefabs/Gameplay/UI/ResultScreen";
         }
     }
 }

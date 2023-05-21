@@ -1,3 +1,5 @@
+using System.Linq;
+using Gameplay.Bullets.Settings;
 using UnityEngine;
 
 namespace Gameplay.Bullets
@@ -14,12 +16,13 @@ namespace Gameplay.Bullets
         public Bullet Spawn(Vector2 position, BulletParam param)
         {
             _bullet = _pool.Spawn(position, param);
-            _bullet.RunLifeTimerIsOver(DeSpawn);
+            _bullet.OnDestroy += DeSpawn;
             return _bullet;
         }
 
         public void DeSpawn(Bullet bullet)
         {
+            bullet.OnDestroy -= DeSpawn;
             _pool.Despawn(bullet);
         }
     }

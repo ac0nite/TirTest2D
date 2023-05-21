@@ -9,12 +9,15 @@ namespace Gameplay.Input
     {
         bool Lock { set; }
         bool GetPressTouch(out Vector2 screenPosition);
+        event Action EventToPress;
     }
     public class InputService : IInputService, IInitializable, IDisposable
     {
         private InputControls _inputControl;
         private bool _isLock;
         private Vector2 _position;
+        
+        public event Action EventToPress;
 
         public bool Lock
         {
@@ -37,6 +40,12 @@ namespace Gameplay.Input
             Lock = false;
 
             _inputControl.Touch.TouchPosition.performed += OnTouchPerformedAction;
+            _inputControl.Touch.TouchPress.started += OnTouchPressStartedAction;
+        }
+        
+        private void OnTouchPressStartedAction(InputAction.CallbackContext context)
+        {
+            EventToPress?.Invoke();
         }
 
         private void OnTouchPerformedAction(InputAction.CallbackContext context)
@@ -47,6 +56,8 @@ namespace Gameplay.Input
         public void Dispose()
         {
             _inputControl.Touch.TouchPosition.performed -= OnTouchPerformedAction;
+            _inputControl.Touch.TouchPress.started -= OnTouchPressStartedAction;
+            
             _inputControl?.Dispose();
         }
     }

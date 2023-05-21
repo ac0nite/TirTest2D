@@ -16,14 +16,17 @@ MonoBehaviour:
     CannonPrefab: {fileID: 1484671737944589968, guid: 55cb3a20f1cc140d28a893b68731dcb3, type: 3}
     BulletResources:
     - Type: 0
-      BulletPrefab: {fileID: 0}
+      BulletPrefab: {fileID: -1085132818171165918, guid: dcb7ad3d69dee4246b2abfa5aa09fabf, type: 3}
     - Type: 1
-      BulletPrefab: {fileID: 0}
+      BulletPrefab: {fileID: 8088471530860071536, guid: 91428aa055da8453e9ef17dbe01daad2, type: 3}
+    BirdPrefab: {fileID: 5693385500632619074, guid: 2c5f1ae63367d4744b44a165a3ecb025, type: 3}
     EnemyResources:
     - Type: 0
-      BirdPrefab: {fileID: 0}
+      SpriteAnimationObject: {fileID: 11400000, guid: 073c520e2b6ab4046b8b26367f5a4a75, type: 2}
+      Scale: 0.2
     - Type: 1
-      BirdPrefab: {fileID: 0}
+      SpriteAnimationObject: {fileID: 11400000, guid: 4ee20abc640654e859eabd1bc4787ae4, type: 2}
+      Scale: 0.28
   _gameplaySettings:
     Levels:
       reorderableList:
@@ -48,11 +51,22 @@ MonoBehaviour:
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
       isExpanded: 1
-      _keyValues: 01000000
-      _keys: 01000000
+      _keyValues: 010000000200000003000000
+      _keys: 010000000200000003000000
       _values:
       - Bullets: {fileID: 11400000, guid: 2e17a87258e374c898d02b9dd5cf2f7d, type: 2}
-        Balance: {fileID: 0}
-    PLayerSettings:
-      MuzzleSpawnBulletOffsetY: 3
-      PowerMovementImpulse: 3
+        Birds: {fileID: 11400000, guid: 1d574358c23f04f248b1f64daef7693b, type: 2}
+        Balance: {fileID: 11400000, guid: d79611de2eee148f395809fd85a973ba, type: 2}
+      - Bullets: {fileID: 11400000, guid: 112cb86b6518642268aa9ba40cef67e3, type: 2}
+        Birds: {fileID: 11400000, guid: 614be34fcc29c4bda80996bbeacd8e69, type: 2}
+        Balance: {fileID: 11400000, guid: a47b0c471d1894243b2999f5e5389cff, type: 2}
+      - Bullets: {fileID: 11400000, guid: aad15829b43fe4531a867aa5e936fbf0, type: 2}
+        Birds: {fileID: 11400000, guid: 74114104a91184d8b9f79fd8d2bec196, type: 2}
+        Balance: {fileID: 11400000, guid: a03d41fd1a68340bd91d596a3d668bf0, type: 2}
+    CannonSettings:
+      MuzzleSpawnBulletOffsetY: 1.1
+      PowerMovementImpulse: 5.5
+    GeneratorSpawnPointSettings:
+      OffsetViewportX: 0.15
+      OffsetViewportY: 0.1
+      DirRange: 0.7

@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Application.UI.Common
 {
-    public abstract class BaseGameplayScreen : MonoBehaviour, IGameplayScreen
+    public abstract class BaseGameplayScreen : MonoBehaviour, IGameplayScreen, IDisposable
     {
         protected Canvas _canvas;
         protected virtual void GetUIComponents()
@@ -11,5 +12,8 @@ namespace Application.UI.Common
         }
         public abstract void Show();
         public abstract void Hide();
+
+        public virtual void Dispose()
+        { }
     }
 }

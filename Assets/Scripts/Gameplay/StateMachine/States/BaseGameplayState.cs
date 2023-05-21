@@ -1,10 +1,11 @@
+using System;
 using Application.UI.Common;
 using Common.StateMachine;
 using Zenject;
 
 namespace Gameplay.StateMachine.States
 {
-    public abstract class BaseGameplayState : IState
+    public abstract class BaseGameplayState : IState, IDisposable
     {
         protected readonly SignalBus _signals;
         protected readonly IScreenController _screenController;
@@ -17,6 +18,8 @@ namespace Gameplay.StateMachine.States
 
         public abstract void OnEnter();
         public abstract void OnExit();
+        public virtual void Dispose()
+        { }
         
         #region FACTORY
         

@@ -1,11 +1,10 @@
 using UnityEngine;
 
-namespace Gameplay
+namespace Common
 {
     public class RandomPointAndDirectionGenerator
     {
         private readonly Vector2 _begin, _end;
-        private readonly Camera _camera;
         private readonly float _range;
 
         public RandomPointAndDirectionGenerator(
@@ -14,21 +13,20 @@ namespace Gameplay
             float offsetViewportY,
             float dirRange)
         {
-            _camera = camera;
-            _begin = _camera.ViewportToWorldPoint(new Vector2(0 + offsetViewportX,1 + offsetViewportY));
-            _end = _camera.ViewportToWorldPoint(new Vector2(1 - offsetViewportX,1 + offsetViewportY));
+            _begin = camera.ViewportToWorldPoint(new Vector2(0 + offsetViewportX,1 + offsetViewportY));
+            _end = camera.ViewportToWorldPoint(new Vector2(1 - offsetViewportX,1 + offsetViewportY));
             _range = dirRange;
         }
 
-        public Data Random()
+        public RandomData Random()
         {
             var point = Point();
-            return new Data() {Point = point, Direction = Direction(point.x)};
+            return new RandomData() {Point = point, Direction = Direction(point.x)};
         }
 
         private Vector2 Point()
         {
-            return Vector2.Lerp(_begin, _end, UnityEngine.Random.Range(-1f,1f));
+            return Vector2.Lerp(_begin, _end, UnityEngine.Random.Range(0f,1f));
         }
 
         private Vector2 Direction(float sign = 0)
@@ -41,14 +39,13 @@ namespace Gameplay
                 return Vector2.zero - new Vector2(UnityEngine.Random.Range(-_range,0), UnityEngine.Random.Range(1f, 1f));
         }
 
-        public void DebugDraw()
+        public void DebugDraw(RandomData data)
         {
-            var data = Random();
-            Debug.DrawRay(data.Point, data.Direction, Color.cyan, 1f);
-            Debug.DrawLine(_begin, _end, Color.red, 1f);
+            Debug.DrawRay(data.Point, data.Direction, Color.cyan, 2f);
+            Debug.DrawLine(_begin, _end, Color.red, 2f);
         }
         
-        public struct Data
+        public struct RandomData
         {
             public Vector2 Point;
             public Vector2 Direction;

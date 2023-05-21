@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BirdSimpleSpriteAnimation
   m_EditorClassIdentifier: 
   SpriteAnimations:
-  - Name: Fly
+  - Name: fly
     FPS: 10
     Frames:
     - {fileID: -8770199067441582678, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
@@ -25,7 +25,7 @@ MonoBehaviour:
     - {fileID: -6713085207223633648, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
     - {fileID: 9010956787943155363, guid: ebcd390c08c4a49c3bb106fffa947b67, type: 3}
     SpriteAnimationType: 0
-  - Name: Explosion
+  - Name: explosion
     FPS: 4
     Frames:
     - {fileID: 21300000, guid: fd18c42731d6e437e9ce9699a4e82f4f, type: 3}

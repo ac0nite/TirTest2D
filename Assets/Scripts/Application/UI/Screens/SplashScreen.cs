@@ -40,7 +40,7 @@ namespace Application.UI.Screens
                 var tween1 = _loaderImage.transform
                     .DOLocalRotate(new Vector3(0, 0, 360), 10, RotateMode.FastBeyond360)
                     .SetRelative(true)
-                    .SetLoops(-1, LoopType.Incremental)
+                    .SetLoops(20, LoopType.Incremental)
                     .SetEase(Ease.InOutSine);
 
                 var tween2 = _backgroundImage.transform

@@ -5,7 +5,7 @@ namespace Gameplay.Bullets
     public class CustomDoTweenTimer
     {
         private readonly float _duration;
-        private Tween _tween;
+        private Tween _tween = null;
 
         public CustomDoTweenTimer(float duration)
         {
@@ -37,7 +37,7 @@ namespace Gameplay.Bullets
 
         public void Dispose()
         {
-            if (_tween.IsPlaying())
+            if (_tween != null && _tween.IsPlaying())
                 _tween.Kill();
         }
     }

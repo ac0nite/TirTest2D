@@ -5,6 +5,7 @@ namespace Application.UI
         UNDEFINED,
         SPLASH,
         LOADING,
+        PREVIEW,
         GAMEPLAY,
         RESULT
     }

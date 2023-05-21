@@ -18,6 +18,11 @@ namespace GabrielBigardi.SpriteAnimator
         private int GetLoopingFrame() => (int)_animationTime % _currentAnimation.Frames.Count;
         private int GetPlayOnceFrame() => Mathf.Min((int)_animationTime, _currentAnimation.Frames.Count - 1);
 
+        public void SetSpriteAnimation(SpriteAnimationObject spriteAnimationObject)
+        {
+            _spriteAnimationObject = spriteAnimationObject;
+        }
+
         // Events
         public event Action OnAnimationComplete;
 

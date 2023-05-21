@@ -1,4 +1,5 @@
 
+using Gameplay.Bullets.Settings;
 using UnityEngine;
 
 namespace Gameplay.Bullets

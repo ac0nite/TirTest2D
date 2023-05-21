@@ -21,10 +21,11 @@ namespace Gameplay.Player
         
         private IPLayer _player;
         private Vector3 _worldPosition;
-        private readonly Cannon.Settings _playerSettings;
+        private readonly Cannon.Settings _cannonSettings;
         private Ray _directionShotRay;
         private CustomDoTweenTimer _timer;
         private Vector2 _screenPosition;
+        private Vector2 _direction;
 
         public PlayerShooting(
             Camera camera,
@@ -35,7 +36,7 @@ namespace Gameplay.Player
             _camera = camera;
             _bulletFacade = bulletFacade;
             _input = inputService;
-            _playerSettings = gameplaySettings.PLayerSettings;
+            _cannonSettings = gameplaySettings.CannonSettings;
         }
         
         public void Initialise(IPLayer player)
@@ -68,30 +69,39 @@ namespace Gameplay.Player
 
         private void Shot()
         {
-            _worldPosition = WorldPosition(_screenPosition);
-            OneShot(_worldPosition);
-            ApplyForce(_worldPosition);
+            //_worldPosition = WorldPosition(_screenPosition);
+            //_worldPosition = DirectionNormalized(_screenPosition);
+            
+            _direction = DirectionNormalized(_screenPosition);
+            OneShot(_direction);
+            ApplyForce(_direction);
         }
 
         private Vector3 WorldPosition(Vector2 mousePosition)
         {
             return _camera.ScreenToWorldPoint(mousePosition);
         }
-
-        private void OneShot(Vector3 worldPosition)
+        
+        private Vector2 DirectionNormalized(Vector2 mousePosition)
         {
-            //Vector2 pos = _camera.ScreenToWorldPoint(mousePosition);
-            var dir = worldPosition - _player.Transform.position;
-            
-            Debug.DrawLine(worldPosition, _player.Transform.position, Color.red, .5f);
-            //
+            Vector2 direction = _camera.ScreenToWorldPoint(mousePosition) - _player.Transform.position;
+            return (direction * 10f).normalized;
+        }
 
-            _directionShotRay = new Ray(_player.MuzzleTransform.position, dir);
-            //_positionSpawn = _muzzle.position.SetY(_muzzle.position.y + _muzzleSpawnOffsetY);
-            _positionSpawn = _directionShotRay.GetPoint(_playerSettings.MuzzleSpawnBulletOffsetY);
+        private void OneShot(Vector2 direction)
+        {
+            // var direction = (worldPosition - _player.Transform.position).normalized;
+            //
+            // direction = ((Vector2)direction * 10).normalized;
+            //
+            // Debug.Log($"[SHOT] [DIR] {direction}");
+
+            //Debug.DrawLine(worldPosition, _player.Transform.position, Color.red, .5f);
+
+            _directionShotRay = new Ray(_player.MuzzleTransform.position, direction);
             
-            var bullet = _bulletFacade.Spawn(_positionSpawn);
-            bullet.Shot(dir.normalized);
+            _positionSpawn = _directionShotRay.GetPoint(_cannonSettings.MuzzleSpawnBulletOffsetY);
+            _bulletFacade.Spawn(_positionSpawn).Shot(direction);
         }
 
         private void OnDrawGizmos()
@@ -113,11 +123,11 @@ namespace Gameplay.Player
             return Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
-        private void ApplyForce(Vector3 position)
+        private void ApplyForce(Vector2 direction)
         {
             // Vector2 pos = _camera.ScreenToWorldPoint(mousePosition);
-            var dir = _player.Transform.position - position;
-            _player.Rigidbody.AddForce(dir * _playerSettings.PowerMovementImpulse, ForceMode2D.Impulse);
+            //var dir = _player.Transform.position - position;
+            _player.Rigidbody.AddForce(-direction * _cannonSettings.PowerMovementImpulse, ForceMode2D.Impulse);
         }
     }
 }

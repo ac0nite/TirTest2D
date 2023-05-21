@@ -1,4 +1,5 @@
 using System;
+using GabrielBigardi.SpriteAnimator;
 
 namespace Gameplay.Enemy.Settings
 {
@@ -6,6 +7,7 @@ namespace Gameplay.Enemy.Settings
     public class EnemyResource
     {
         public EnemyType Type;
-        public Bird BirdPrefab;
+        public SpriteAnimationObject SpriteAnimationObject;
+        public float Scale;
     }
 }

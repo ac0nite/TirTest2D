@@ -1,11 +1,13 @@
 using System;
 using Common.StateMachine;
 using Gameplay.Bullets;
+using Gameplay.Enemy;
 using Gameplay.Input;
 using Gameplay.Player;
 using Gameplay.Settings;
 using Gameplay.StateMachine;
 using Gameplay.StateMachine.States;
+using Gameplay.UI;
 using Resources;
 using Zenject;
 
@@ -24,12 +26,16 @@ namespace Gameplay.Installer
         {
             InstallStateMachine();
             InstallInput();
-            InstallWeapon();
             InstallSignals();
 
-            Container.BindInterfacesAndSelfTo<ScreenBackground>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameplayBackground>().AsSingle();
 
+            BulletsInstaller.Install(Container);
             PlayerInstaller.Install(Container);
+            GameplayUIInstaller.Install(Container);
+            EnemyInstaller.Install(Container);
+
+            Container.BindInterfacesAndSelfTo<GameplayLevelManager>().AsSingle();
         }
 
         private void InstallSignals()
@@ -49,8 +55,12 @@ namespace Gameplay.Installer
                 .To<LoadingGameplayState>()
                 .WhenInjectedInto<GameplayStateMachine>();
             
-            Container.BindFactory<IState, GameGameplayState.Factory>()
-                .To<GameGameplayState>()
+            Container.BindFactory<IState, PreviewGameplayState.Factory>()
+                .To<PreviewGameplayState>()
+                .WhenInjectedInto<GameplayStateMachine>();
+            
+            Container.BindFactory<IState, RunPlayGameplayState.Factory>()
+                .To<RunPlayGameplayState>()
                 .WhenInjectedInto<GameplayStateMachine>();
             
             Container.BindFactory<IState, ResultGameplayState.Factory>()
@@ -60,26 +70,6 @@ namespace Gameplay.Installer
         private void InstallInput()
         {
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
-        }
-        private void InstallWeapon()
-        {
-            Container.BindMemoryPool<Bomb, Bomb.Pool>()
-                .WithInitialSize(20)
-                .FromComponentInNewPrefabResource(Constants.Resources.Bomb)
-                .UnderTransformGroup("Bomb_pool")
-                .NonLazy();
-            
-            Container.BindMemoryPool<Cannonball, Cannonball.Pool>()
-                .WithInitialSize(20)
-                .FromComponentInNewPrefabResource(Constants.Resources.Cannonball)
-                .UnderTransformGroup("Cannonball_pool")
-                .NonLazy();
-
-            Container.Bind(typeof(BombSpawner)).ToSelf().AsSingle();
-            Container.Bind(typeof(CannonballSpawner)).ToSelf().AsSingle();
-
-            Container.BindInterfacesAndSelfTo<WeaponModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BulletFacade>().AsSingle();
         }
     }
 }
